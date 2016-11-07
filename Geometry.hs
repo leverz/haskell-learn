@@ -14,7 +14,7 @@ module Geometry
     sphereVolume radius = (4.0 / 3.0) * pi * (radius ^ 3)
 
     sphereArea :: Float -> Float
-    sphereArea redius = 4 * pi * (redius ^ 2)
+    sphereArea radius = 4 * pi * (radius ^ 2)
 
     cubeVolume :: Float -> Float
     cubeVolume side = cuboidVolume side side side
