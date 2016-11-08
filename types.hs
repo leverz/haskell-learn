@@ -1,3 +1,14 @@
+module Shapes 
+(
+ Point (..),
+ Shape (..),
+ area,
+ nudge,
+ baseCircle,
+ baseRect
+ ) where
+
+main = putStrLn "Hello World"
 -- Point类型，表示平面中的点
 data Point = Point Float Float deriving (Show)
 -- Shape 是类型，它的值为Circle和Rectangle
