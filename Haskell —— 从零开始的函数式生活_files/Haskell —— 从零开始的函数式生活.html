@@ -1,0 +1,443 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="text/css" http-equiv="Content-Style-Type">
+<title>Haskell &mdash;&mdash; 从零开始的函数式生活</title>
+<style type="text/css">
+span.s1 {background-color: #FFFFFF; color: #FF6603; font-weight: bold}
+span.s2 {background-color: #FFFFFF; color: #0303FF}
+span.s3 {background-color: #FFFFFF; color: #FF0303}
+span.s4 {background-color: #FFFFFF; color: #FF6603}
+span.s5 {background-color: #FFFFFF; color: #000000; font-weight: bold}
+</style>
+</head>
+<body>
+<h1 align="center" class="root">
+<a name="146tpqud56i0hcpefj0kuj0vbv">Haskell &mdash;&mdash; 从零开始的函数式生活</a>
+</h1>
+<div align="center" class="globalOverview">
+<img src="./images/Haskell-xmind.jpg"></div>
+<p class="relationships">参见: <a href="#74b64orcugoeem7edv23a78guh">Haskell是一种纯函数式编程语言 (什么是Haskell)</a>, <a href="#03teb4jah54hjsuija6j1p7cr7">函数是用来描述一类问题的抽象。
+函数没有任何副作用。
+函数能做的事情就是求值并返回结果。 (什么是函数)</a>
+</p>
+<h2 class="topic">
+<a name="1208or1bnk7flarssneik7b5vn">Haskell的一些特性</a>
+</h2>
+<h3 class="topic">
+<a name="68i5oa6jqe5qfpjjqu7p30f84e">&nbsp;惰性求值</a>
+</h3>
+<div class="notesContainer">
+<p>惰性求值: Haskell具有lazy（惰性）这样一种特性。也就是说在真正需要结果以前，Haskell是不会执行函数的。这也是引用透明性的功劳：函数的返回值仅与传入的参数有关，那么函数何时真正进行计算，就无关紧要了。</p>
+</div>
+<p class="relationships">参见: <a href="#6gklm52ckn8o2mvoe1rair9llh">引用透明性</a>
+</p>
+<h3 class="topic">
+<a name="4v1ihsrm5ourespe1eh7kvd4ou">&nbsp;列表推导式</a>
+</h3>
+<div class="notesContainer">
+<p>是一种过滤、转换或者组合列表的方式</p>
+</div>
+<h3 class="topic">
+<a name="1j41r9stjfqfaglehssduhrdih">&nbsp;过滤</a>
+</h3>
+<div class="notesContainer">
+<p>从一个列表中筛选出符合特定谓词元素的操作</p>
+</div>
+<h3 class="topic">
+<a name="0oc99r2og7oddcqtoo0bimgcce">&nbsp;元组</a>
+</h3>
+<div class="notesContainer">
+<p>类似于列表，不同的是列表的每一个元素类型必须相同，而元组可以包含多种不同类型的元素。长度为2的元组又叫序对，长度为3的元组又叫三元组。并且在元组中，长度不同的元组也被定义为不同类型，序对和三元组就属于不同的类型。</p>
+</div>
+<h3 class="topic">
+<a name="4eome1jsufog3nsan7k9seu1ti">&nbsp;静态强类型</a>
+</h3>
+<div class="notesContainer">
+<p>静态类型：在编译之前就明确知道了变量或者返回值的类型</p>
+<p>强类型：不支持隐式的类型转换</p>
+</div>
+<h3 class="topic">
+<a name="1hmnj6iim0tohkrsa1ud3mjerf">&nbsp;类型自动推导</a>
+</h3>
+<h3 class="topic">
+<a name="5fk99vjen5flukmi4p6fmb95b3">&nbsp;泛变量_</a>
+</h3>
+<h3 class="topic">
+<a name="3qpopahr1qb1lk8eek3vtllqds">&nbsp;类型变量</a>
+</h3>
+<h3 class="topic">
+<a name="7ktioj6hbnlt4cfq77qc1t3er7">&nbsp;多态函数、多态常量</a>
+</h3>
+<h3 class="topic">
+<a name="0co5ggjod61b2u1lb37kdfmlar">&nbsp;生成器</a>
+</h3>
+<div class="notesContainer">
+<p>（x, y）&lt;- xs</p>
+</div>
+<h2 class="topic">
+<a name="7a6ucs941avbgcgvv4dhv1q4n6">类型</a>
+</h2>
+<div class="notesContainer">
+<p>强类型</p>
+<p>静态类型</p>
+<p>自动推导</p>
+</div>
+<h3 class="topic">
+<a name="0gft6njpkfhh188bf9iijani01">&nbsp;常见类型</a>
+</h3>
+<h3 class="topic">
+<a name="2imgul1h3qrk1b6bou181gvoin">&nbsp;&nbsp;Int</a>
+</h3>
+<h3 class="topic">
+<a name="3rd9skh8b7vk62od7k0ji6pcf5">&nbsp;&nbsp;Integer</a>
+</h3>
+<h3 class="topic">
+<a name="4kopntc6ho3dpfmfatq4pf1b02">&nbsp;&nbsp;Float</a>
+</h3>
+<h3 class="topic">
+<a name="35vt3pa9gmedq886kkkb103ifk">&nbsp;&nbsp;Double</a>
+</h3>
+<h3 class="topic">
+<a name="1sq71in3mmdcget103grl33niu">&nbsp;&nbsp;Bool</a>
+</h3>
+<h3 class="topic">
+<a name="7ct7n8j6se0crrr6vhrdbaf2qo">&nbsp;&nbsp;Char</a>
+</h3>
+<h3 class="topic">
+<a name="0oi658e42hgdos335qdsdifkd3">&nbsp;&nbsp;元组</a>
+</h3>
+<h3 class="topic">
+<a name="5h21au8mi6fmcit6tfc060le8k">&nbsp;&nbsp;类型变量</a>
+</h3>
+<h3 class="topic">
+<a name="5sk501u1kkiv00pp2t4p6b66ts">&nbsp;&nbsp;Ordering</a>
+</h3>
+<div class="notesContainer">
+<p>Ordering类型的值有三种：GT、LT、EQ，分别表示大于，小于，等于</p>
+</div>
+<h3 class="topic">
+<a name="7na95me6icjvti7sjo2bukro6d">&nbsp;&nbsp;函数</a>
+</h3>
+<h3 class="topic">
+<a name="2017c39ak4ohkpk2pv2tvtvpn2">&nbsp;类型类</a>
+</h3>
+<div class="notesContainer">
+<p>类型约束符 =&gt;</p>
+<p>类型注解 ::</p>
+</div>
+<h3 class="topic">
+<a name="14g9hbdqcm5icbrk6gtm1r3il8">&nbsp;&nbsp;Eq类型类</a>
+</h3>
+<div class="notesContainer">
+<p>用于可判断相等性的类型。</p>
+<p>它的实例必须实现==和/=两个函数</p>
+</div>
+<h3 class="topic">
+<a name="6onmq9icr4tdtiqi4mrd58b3o8">&nbsp;&nbsp;Ord类型类</a>
+</h3>
+<div class="notesContainer">
+<p>用于比较大小的类型类</p>
+</div>
+<h3 class="topic">
+<a name="4lqj29pt5vap54qefcu5d2sl13">&nbsp;&nbsp;Show类型类</a>
+</h3>
+<div class="notesContainer">
+<p>除函数外的所有类型都是Show的实例</p>
+</div>
+<h3 class="topic">
+<a name="10ij18d0fanu132tuts3avh3g0">&nbsp;&nbsp;Read类型类</a>
+</h3>
+<div class="notesContainer">
+<p>所有的类型都是Read的实例</p>
+</div>
+<h3 class="topic">
+<a name="4jog9nj5l6p7c85qrhukm74mj5">&nbsp;&nbsp;Enum类型类</a>
+</h3>
+<div class="notesContainer">
+<p>可枚举，从上一个值能够推导出下一个值。</p>
+<p>每个值都有前趋(predecesor)和后继(successer)。</p>
+<p>pred函数可以获取一个Enum实例的前趋。</p>
+<p>succ函数可以获取一个Enum实例的后继。</p>
+<p>
+<span class="s1">该类型包含的主要类型有：()、Bool、Char、Ordering、Int、Integer、Float、Double</span>
+</p>
+</div>
+<h3 class="topic">
+<a name="7oujti3783fv1p5n0d5k7bb34t">&nbsp;&nbsp;Bounded类型类</a>
+</h3>
+<div class="notesContainer">
+<p>有上限和下限，分别可以通过maxBound和minBound两个函数得到。</p>
+</div>
+<h3 class="topic">
+<a name="5lg2ig8fh86gc6pmmk14bgnh56">&nbsp;&nbsp;Num类型类</a>
+</h3>
+<div class="notesContainer">
+<p>表示数值的类型类，它的实例都具有数的特征。</p>
+<p>如Int、Integer、Float、Double</p>
+<p>只有已经属于Show与Eq的实例类型，才可以成为Num类型类的实例。</p>
+</div>
+<h3 class="topic">
+<a name="51svpsveclg9ug5sg0ss1jmku0">&nbsp;&nbsp;Floating类型类</a>
+</h3>
+<div class="notesContainer">
+<p>仅包含Float和Double两种浮点类型，用于存储浮点数据。</p>
+</div>
+<h3 class="topic">
+<a name="47abfbmu3mrlnqagt79l6kfbnb">&nbsp;&nbsp;Integeral类型类</a>
+</h3>
+<div class="notesContainer">
+<p>仅包含整数，其实例类型有Int和Integer。</p>
+</div>
+<h3 class="topic">
+<a name="7v26t1jhtnb7rkm258m8bki46u">&nbsp;定义行为的接口，是一组函数的集合</a>
+</h3>
+<p class="summary">(<a href="#2017c39ak4ohkpk2pv2tvtvpn2">类型类</a>)</p>
+<h2 class="topic">
+<a name="1fl9ljr911pp5mv79a6gq1l6cq">函数式的语法</a>
+</h2>
+<h3 class="topic">
+<a name="4hk675cc9vtbje1gpqb2e42487">&nbsp;基本语法</a>
+</h3>
+<h3 class="topic">
+<a name="04u5g9vvctt77o99tubannctlj">&nbsp;&nbsp;模式匹配</a>
+</h3>
+<div class="notesContainer">
+<p>pattern matching</p>
+<p>通过检测数据的特定结构来检查是否匹配，并按模式从中解析出数据。</p>
+<p>
+<span class="s2">可以配合递归函数使用。</span>
+</p>
+<p>
+<span class="s2">as模式：将一个名字和@置于普通模式的前面即可。xs@(x:y:ys</span><span class="s2">) xs就表示整个数组。</span><span class="s2"></span>
+</p>
+<p>
+<span class="s3">注意：</span>
+</p>
+<p>
+<span class="s3">1.模式匹配是有顺序的，第一次匹配成功之后，后面的匹配都不会再执行。</span>
+</p>
+<p>
+<span class="s3">2.定义模式时，一定要留一个万能模式</span>
+</p>
+</div>
+<h3 class="topic">
+<a name="6bl8bjkqfokohdeojd8t5611kt">&nbsp;&nbsp;哨卫（guard）</a>
+</h3>
+<div class="notesContainer">
+<p>模式用来检查参数的结构是否匹配，哨卫则用来检查参数的性质是否为真。</p>
+<p>哨卫跟在 | 后面，一般排在最后的哨卫都是otherwise</p>
+</div>
+<h3 class="topic">
+<a name="67i1tjcn82eoc5sakpvht9oose">&nbsp;&nbsp;where</a>
+</h3>
+<div class="notesContainer">
+<p>在局部作用域中定义一个变量</p>
+</div>
+<h3 class="topic">
+<a name="44ak5cc5ivvg9ts1q08mgqe4it">&nbsp;&nbsp;case表达式</a>
+</h3>
+<div class="notesContainer">
+<p>case expression of pattern -&gt; result</p>
+<p>                                pattern -&gt; result</p>
+<p>                                pattern -&gt; result</p>
+<p>                                ...</p>
+<p></p>
+</div>
+<h3 class="topic">
+<a name="3nvtqn8m9sjdm79lttg28dt3ah">&nbsp;&nbsp;let</a>
+</h3>
+<div class="notesContainer">
+<p>let &lt;bindings&gt; in &lt;expressions&gt;</p>
+<p></p>
+</div>
+<h3 class="topic">
+<a name="0pgqjq7mv7j4ouq8n6remjeauh">&nbsp;递归思想</a>
+</h3>
+<div class="notesContainer">
+<p>递归在Haskell中至关重要。</p>
+<p>命令式语言要求你告知如何进行计算，Haskell则倾向于让你声明什么是问题。</p>
+<p>对Haskell而言，重要的不是求解的步骤，而是对问题的定义和对解的描述。</p>
+<p></p>
+<p>
+<span class="s4">使用递归解决问题，最好的方式是先确认</span><span class="s1">基准条件</span><span class="s4">，并把问题分解为几个相似的子问题。</span>
+</p>
+</div>
+<p class="relationships">参见: <a href="#139c7t88r5svqu3iamrosamlsd">函数自己调用自己 (什么是递归)</a>
+</p>
+<h3 class="topic">
+<a name="43dtud24bi2ckldktr1pgj5ls2">&nbsp;高阶函数</a>
+</h3>
+<h3 class="topic">
+<a name="1keh6fd5rn0nq9r5q38vshgmls">&nbsp;&nbsp;函数柯里化</a>
+</h3>
+<div class="notesContainer">
+<p>Haskell的所有函数本质上都只有一个参数。</p>
+<p>Haskell中的所有<span class="s5">多参数</span>函数都是<span class="s5">柯里函数</span>
+</p>
+<p>
+<span class="s5">柯里函数</span>不会一次性取完所有的参数，而是每次调用时只取一个参数，并返回一个一元函数来取下一个参数，以此类推。</p>
+</div>
+<h3 class="topic">
+<a name="760pvmsdurmphpg6r7fli4k7n6">&nbsp;&nbsp;函数式工具箱</a>
+</h3>
+<h3 class="topic">
+<a name="5saruobsgab5qnued53nlj12p0">&nbsp;&nbsp;&nbsp;map</a>
+</h3>
+<h3 class="topic">
+<a name="3efsv4cocoiqr35vmtlevt6fto">&nbsp;&nbsp;&nbsp;filter</a>
+</h3>
+<h3 class="topic">
+<a name="3bsutd5i2kpuusgg6d6cvhbk8m">&nbsp;&nbsp;&nbsp;映射带有多个参数的函数</a>
+</h3>
+<div class="notesContainer">
+<p> let listOfFuns = map (*) [0..]</p>
+<p>(listOfFuns !! 4) 5</p>
+<p></p>
+</div>
+<h3 class="topic">
+<a name="4fi6v8m8otir56bb6keqkf052m">&nbsp;&nbsp;lambda</a>
+</h3>
+<div class="notesContainer">
+<p>一次性的匿名函数</p>
+<p>用\声明一个匿名函数</p>
+<p>大部分lambda是没必要的</p>
+</div>
+<h3 class="topic">
+<a name="07qj1uebr280pi4d797og9fu0v">&nbsp;&nbsp;fold函数</a>
+</h3>
+<h3 class="topic">
+<a name="7d6onjf9c4g7bbq70sd6c18srj">&nbsp;&nbsp;&nbsp;foldl</a>
+</h3>
+<div class="notesContainer">
+<p>用初始值 和 列表 的头部调用 二元函数， 得到一个新的 累加值，并用新的 累加值与列表的下一个元素调用 二元函数</p>
+<p></p>
+<p>二元函数的参数顺序： 第一个参数为 累加值</p>
+<p>第二个参数为 列表当前值</p>
+<p></p>
+<p>foldl无法处理无限列表，得到的结果数组倒序排列</p>
+</div>
+<h3 class="topic">
+<a name="5009ljpud870j9gfgpmu0jto3o">&nbsp;&nbsp;&nbsp;foldr</a>
+</h3>
+<div class="notesContainer">
+<p>二元函数的参数顺序与foldl相反</p>
+<p>二元函数第一个参数为 列表当前值 第二个参数为右折叠</p>
+<p></p>
+<p>foldr可以处理无限列表，得到的数组正向</p>
+<p>右折叠函数还适合用来处理二元函数的第二个参数不必要的情况。</p>
+</div>
+<h3 class="topic">
+<a name="3c45i16ammkfdqc0ok63p5k6fd">&nbsp;&nbsp;&nbsp;foldll</a>
+</h3>
+<h3 class="topic">
+<a name="6ng5hc3a1v7kbd3ttvk1g6ugv2">&nbsp;&nbsp;&nbsp;foldrl</a>
+</h3>
+<h3 class="topic">
+<a name="0gnf14999hq9l8mehg8ernb4da">&nbsp;&nbsp;scan</a>
+</h3>
+<h3 class="topic">
+<a name="5ig699v9qtss3atk89dpj5rn8l">&nbsp;&nbsp;&nbsp;scanl</a>
+</h3>
+<h3 class="topic">
+<a name="02fvs6cntfs1vtheillkbha1sk">&nbsp;&nbsp;&nbsp;scanr</a>
+</h3>
+<h3 class="topic">
+<a name="4o8h8n60s0qvkebahh7kgs5rlv">&nbsp;&nbsp;&nbsp;scanll</a>
+</h3>
+<h3 class="topic">
+<a name="7983dto0b3ui42jgi8ddnd10g5">&nbsp;&nbsp;&nbsp;scanrl</a>
+</h3>
+<h3 class="topic">
+<a name="2jpji0ej8ti5eug2njmagb88fu">&nbsp;&nbsp;&nbsp;会将累加值的变动记录到列表中</a>
+</h3>
+<p class="summary">(<a href="#5ig699v9qtss3atk89dpj5rn8l">scanl</a>, <a href="#02fvs6cntfs1vtheillkbha1sk">scanr</a>)</p>
+<h3 class="topic">
+<a name="6i35ji44ifhjuo3kkr04cimvhf">&nbsp;&nbsp;$函数 - 函数应用符</a>
+</h3>
+<div class="notesContainer">
+<p> f $ x = f x</p>
+<p>$能够降低 f 的优先级</p>
+<p></p>
+<p>右结合性</p>
+<p></p>
+<p>使用了它之后可以省去括号</p>
+</div>
+<h3 class="topic">
+<a name="62gd3dcklce1pgl992e3fc3hng">&nbsp;&nbsp;函数组合 - .</a>
+</h3>
+<div class="notesContainer">
+<p>数学定义(f &middot; g)(x) = f(g(x))</p>
+<p></p>
+<p>Haskell 中用 . 表示组合</p>
+<p></p>
+</div>
+<h3 class="topic">
+<a name="4io2665v5qo4ao320qnlia2klj">&nbsp;&nbsp;&nbsp;point-free</a>
+</h3>
+<div class="notesContainer">
+<p>等号两边都有的参数可以进行省略</p>
+</div>
+<h2 class="topic">
+<a name="04jmk6ktu87nf7flhoi5mu0d4a">模块</a>
+</h2>
+<div class="notesContainer">
+<p>Haskell 中的 module 是指包含函数、类型与类型类的定义的文件</p>
+<p></p>
+<p>Haskell的标准库被分成了一系列模块：</p>
+<p>处理列表、处理并发、处理复数...</p>
+<p></p>
+<p>我们目前用到的大部分函数、类型以及类型类都是Prelude模块的一部分</p>
+<p>默认Prelude模块会自动导入</p>
+<p></p>
+<p></p>
+</div>
+<h3 class="topic">
+<a name="2tfag7g6cnmgbsd5g97f31ovvj">&nbsp;导入模块</a>
+</h3>
+<div class="notesContainer">
+<p>import ModuleName</p>
+<p>import qualified ModuleName.a as M  限定导入并重命名</p>
+<p></p>
+</div>
+<h3 class="topic">
+<a name="0jhjnlluiq75vja4uh7klh85ge">&nbsp;映射键与值</a>
+</h3>
+<div class="notesContainer">
+<p>关联列表</p>
+</div>
+<h2 class="topic">
+<a name="74b64orcugoeem7edv23a78guh">Haskell是一种纯函数式编程语言</a>
+</h2>
+<p class="relationships">参见: <a href="#146tpqud56i0hcpefj0kuj0vbv">Haskell &mdash;&mdash; 从零开始的函数式生活 (什么是Haskell)</a>
+</p>
+<h2 class="topic">
+<a name="03teb4jah54hjsuija6j1p7cr7">函数是用来描述一类问题的抽象。
+函数没有任何副作用。
+函数能做的事情就是求值并返回结果。</a>
+</h2>
+<p class="relationships">参见: <a href="#146tpqud56i0hcpefj0kuj0vbv">Haskell &mdash;&mdash; 从零开始的函数式生活 (什么是函数)</a>
+</p>
+<h2 class="topic">
+<a name="6gklm52ckn8o2mvoe1rair9llh">引用透明性</a>
+</h2>
+<div class="notesContainer">
+<p>引用透明性：如果用相同的参数调用一个函数多次，每次得到的结果一定相同。可以使用引用透明性验证一个函数的正确性，继而可以将一些简单的函数进行相互组合实现更复杂的函数。</p>
+</div>
+<p class="relationships">参见: <a href="#68i5oa6jqe5qfpjjqu7p30f84e">惰性求值</a>
+</p>
+<h2 class="topic">
+<a name="139c7t88r5svqu3iamrosamlsd">函数自己调用自己</a>
+</h2>
+<div class="notesContainer">
+<p>将问题展开为同样的子问题，并不断对子问题进行展开、求解，直至抵达问题的基准条件为止。</p>
+</div>
+<p class="relationships">参见: <a href="#0pgqjq7mv7j4ouq8n6remjeauh">递归思想 (什么是递归)</a>
+</p>
+<h2 class="topic">
+<a name="2pes97f2iih5ll7raqrumjrrcs">不需要指定初始值，初始值就是列表的第一个元素
+要求折叠的列表中至少要包含一个元素</a>
+</h2>
+</body>
+</html>
