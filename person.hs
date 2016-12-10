@@ -8,3 +8,7 @@ data Person = Person {
     phone :: String,
     flavor :: String
 } deriving (Show)
+
+data IntMaybe = INothing | IJust Int
+data StringMaybe = SNothing | SJust String
+data ShapeMaybe = ShNothing | ShJust Shape
