@@ -7,7 +7,7 @@ data Person = Person {
     height :: Float,
     phone :: String,
     flavor :: String
-} deriving (Show)
+} deriving (Eq, Show, Read)
 
 data IntMaybe = INothing | IJust Int
 data StringMaybe = SNothing | SJust String
