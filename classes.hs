@@ -20,10 +20,10 @@ instance Show TrafficLight where
     show Green = "Green light"
 
 
-instance (Eq m) => Eq (Maybe m) where
-    Just x == Just y = x == y
-    Nothing == Nothing = True
-    _ == _ = False
+-- instance (Eq m) => Eq (Maybe m) where
+--     Just x == Just y = x == y
+--     Nothing == Nothing = True
+--     _ == _ = False
 
 
 class YesNo a where
@@ -43,4 +43,8 @@ instance YesNo Bool where
 instance YesNo (Maybe a) where
     yesno (Just _) = True
     yesno Nothing = False
+
+instance YesNo TrafficLight where
+    yesno Red = False
+    yesno _ = True
 
