@@ -1,3 +1,12 @@
+module Tree
+(
+ Tree(..),
+ singleton,
+ treeInsert,
+ treeElem,
+ createTree
+) where
+
 data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving (Show)
 
 -- 构造一个单节点的树，创建新节点的工厂，并且两颗子树都设为空
