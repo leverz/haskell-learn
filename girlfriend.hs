@@ -32,4 +32,8 @@ main_readFile = do
 main = do
     contents <- readFile "girlfriend.txt"
     writeFile "girlfriendcaps.txt" (map toUpper contents)
-    
+
+main = do
+    withFile "something.txt" ReadMode (\handle -> do
+        hSetBuffering handle $ BlockBuffering (Just 2048)
+        putStr contents)
