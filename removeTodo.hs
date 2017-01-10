@@ -1,11 +1,10 @@
 import System.IO
 import System.Directory
 import Data.List
+import Control.Exception
 
 main = do
     handle <- openFile "todo.txt" ReadMode
-    -- 使用openTempFile 而不是新建一个文件，减少开销
-    (tempName, tempHandle) <- openTempFile "." "temp"
     contents <- hGetContents handle
     let todoTasks = lines contents
         numberedTasks = zipWith (\n line -> show n ++ " - " ++ line) [0..] todoTasks
@@ -17,8 +16,14 @@ main = do
     numberString <- getLine
     let number = read numberString
         newTodoItems = delete (todoTasks !! number) todoTasks
-    hPutStr tempHandle $ unlines newTodoItems
-    hClose handle
-    hClose tempHandle
-    removeFile "todo.txt"
-    renameFile tempName "todo.txt"
+    -- 使用openTempFile 而不是新建一个文件，减少开销
+    -- (tempName, tempHandle) <- openTempFile "." "temp"
+    bracketOnError (openTempFile "." "temp")
+        (\(tempName, tempHandle) -> do
+            hClose tempHandle
+            removeFile tempName)
+        (\(tempName, tempHandle) -> do
+            hPutStr tempHandle newTodoItems
+            hClose tempHandle
+            removeFile "todo.txt"
+            renameFile tempName "todo.txt")
