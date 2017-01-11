@@ -3,12 +3,16 @@ import System.Directory
 import System.IO
 import Data.List
 
-dispatch :: [(String, [String] -> IO ())]
-dispatch = [ ("add", add)
-           , ("view", view)
-           , ("remove", remove)
-           , ("bump", bump)
-           ]
+dispatch :: String -> [String] -> IO ()
+dispatch "add" = add
+dispatch "view" = view
+dispatch "remove" = remove
+dispatch "bump" = bump
+dispatch command = doesntExist command
+
+doesntExist :: String -> [String] -> IO ()
+doesntExist command _ = 
+    putStrLn $ "The " ++ command ++ " command doesn't exist"
 
 main = do
     (command:args) <- getArgs
