@@ -2,6 +2,8 @@
 type Birds = Int
 type Pole = (Birds, Birds)
 
+x -: f = f x
+
 landLeft :: Birds -> Pole -> Pole
 landLeft n (left, right) = (left + n, right)
 
