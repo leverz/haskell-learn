@@ -24,3 +24,6 @@ landRight' n (left, right)
 -- meet the banana will out of balance
 banana :: Pole -> Maybe Pole
 banana _ = Nothing
+
+(>>) :: (Monad m) => m a -> m b -> m b
+m >> n = m >>= \_ -> n
