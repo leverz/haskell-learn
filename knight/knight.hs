@@ -1,3 +1,5 @@
+import Data.List
+
 type KnightPos = (Int, Int)
 
 class Monad m => MonadPlus m where
@@ -69,5 +71,9 @@ in3' start = return start >>= moveKnight >>= moveKnight >>= moveKnight
 canReachIn3 :: KnightPos -> KnightPos -> Bool
 canReachIn3 start end = end `elem` in3 start
 
-moveKnightWay :: KnightPos -> KnightPos -> [[KnightPos]]
-moveKnightWay start end = 
+-- 自定义步数，使用 replicate 产生一个 moveKnight 列表
+inMany :: Int -> KnightPos -> [KnightPos]
+inMany x start = return start >>= foldr (<=<) return (replicate x moveKnight)
+
+canReachIn :: Int -> KnightPos -> KnightPos -> Bool
+canReachIn x start end = end `elem` inMany x start
