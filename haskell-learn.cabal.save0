@@ -3,10 +3,10 @@
 
 name:                haskell-learn
 version:             0.1.0.0
-synopsis:            学习 Haskell 产生的代码
+synopsis:            学习haskell产生的代码
 -- description:         
 homepage:            https://github.com/leverz/haskell-learn
-license:             MIT
+license:             BSD3
 license-file:        LICENSE
 author:              Lever
 maintainer:          384094206wz@gmail.com
@@ -16,8 +16,8 @@ build-type:          Simple
 extra-source-files:  ChangeLog.md, README.md
 cabal-version:       >=1.10
 
-library
-  exposed-modules:     Geometry, Main, Geometry.Cube, Geometry.Cuboid, Geometry.Sphere, MoreMonad.DiffList, RPN.RPN
+executable haskell-learn
+  main-is:             Main.hs
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.9 && <4.10
