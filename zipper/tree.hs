@@ -29,6 +29,7 @@ changeTop :: Tree Char -> Tree Char
 changeTop (Node x l (Node y (Node _ m n) r)) = Node x l (Node y (Node 'P' m n) r)
 
 -- 递归式修改 W 为 P, 其实是把模式匹配中的方向抽离出来作为输入
+-- 将问题的解决办法拆分成多步，然后递归消费他们
 data Direction = L | R deriving (Show)
 type Directions = [Direction]
 
