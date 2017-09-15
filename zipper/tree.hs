@@ -33,7 +33,13 @@ changeTop (Node x l (Node y (Node _ m n) r)) = Node x l (Node y (Node 'P' m n) r
 data Direction = L | R deriving (Show)
 type Directions = [Direction]
 
-changeTop' :: Direction -> Tree Char -> Tree Char
-changeTop' (L:ds) (Node x l r) = Node x (changeTop ds l) r
-changeTop' (R:ds) (Node x l r) = Node x l (changeTop ds r)
+changeTop' :: Directions -> Tree Char -> Tree Char
+changeTop' (L:ds) (Node x l r) = Node x (changeTop' ds l) r
+changeTop' (R:ds) (Node x l r) = Node x l (changeTop' ds r)
 changeTop' [] (Node _ l r) = Node 'P' l r
+
+-- 输入方向列表，输出目标元素
+elemAt :: Directions -> Tree a -> a
+elemAt (L:ds) (Node _ l _) = elemAt ds l
+elemAt (R:ds) (Node _ _ r) = elemAt ds r
+elemAt [] (Node x _ _) = x
