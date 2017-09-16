@@ -55,3 +55,21 @@ goRight (Node _ _ r, bs) = (r, R:bs)
 -- 先向右走，再向左走
 x -: f = f x
 -- (freeTree, []) -: goRight -: goLeft
+
+-- 定义一个新类型以存储遍历过的树，方便之后对树进行重建
+data Crumb a = LeftCrumb a (Tree a) | RightCrumb a (Tree a) deriving (Show)
+type Breadcrumbs' a = [Crumb a]
+
+-- LeftCrumb 表示向左走，另外两个字段分别表示所离开的节点和未被选中的右子树
+goLeft' :: (Tree a, Breadcrumbs' a) -> (Tree a, Breadcrumbs' a)
+goLeft' (Node x l r, bs) = (l, LeftCrumb x r:bs)
+
+goRight' :: (Tree a, Breadcrumbs' a) -> (Tree a, Breadcrumbs' a)
+goRight' (Node x l r, bs) = (r, RightCrumb x l:bs)
+
+-- 有了父节点的信息，可以进行向上走操作
+goUp :: (Tree a, Breadcrumbs' a) -> (Tree a, Breadcrumbs' a)
+goUp (t, LeftCrumb x r:bs) = (Node x t r, bs)
+goUp (t, RightCrumb x l:bs) = (Node x l t, bs)
+
+type Zipper a = (Tree a, Breadcrumbs' a)
