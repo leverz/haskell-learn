@@ -86,3 +86,11 @@ attach t (_, bs) = (t, bs)
 topMost :: Zipper a -> Zipper a
 topMost (t, []) = (t, [])
 topMost z = topMost (goUp z)
+
+-- 列表中的 zipper
+type ListZipper a = ([a], [a])
+goForward :: ListZipper a -> ListZipper a
+goForward (x:xs, bs) = (xs, x:bs)
+
+goBack :: ListZipper a -> ListZipper a
+goBack (xs, b:bs) = (b:xs, bs)
