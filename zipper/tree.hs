@@ -73,3 +73,8 @@ goUp (t, LeftCrumb x r:bs) = (Node x t r, bs)
 goUp (t, RightCrumb x l:bs) = (Node x l t, bs)
 
 type Zipper a = (Tree a, Breadcrumbs' a)
+
+modify :: (a -> a) -> Zipper a -> Zipper a
+modify f (Node x l r, bs) = (Node (f x) l r, bs)
+modify f (Empty, bs) = (Empty, bs)
+
