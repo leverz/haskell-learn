@@ -31,9 +31,11 @@ myDisk =
 data FSCrumb = FSCrumb Name [FSItem] [FSItem] deriving (Show)
 type FSZipper = (FSItem, [FSCrumb])
 
+-- cd ..
 fsUp :: FSZipper -> FSZipper
 fsUp (item, FSCrumb name ls rs:bs) = (Folder name (ls ++ [item] ++ rs), bs)
 
+-- 在当前目录下根据文件名寻找文件
 fsTo :: Name -> FSZipper -> FSZipper
 fsTo name (Folder folderName items, bs) = 
   let (ls, item:rs) = break (nameIs name) items
@@ -42,3 +44,7 @@ fsTo name (Folder folderName items, bs) =
 nameIs :: Name -> FSItem -> Bool
 nameIs name (Folder folderName _) = name == folderName
 nameIs name (File fileName _) = name == fileName
+
+fsRename :: Name -> FSZipper -> FSZipper
+fsRename newName (Folder name items, bs) = (Folder newName items, bs)
+fsRename newName (File name dat, bs) = (File newName dat, bs)
