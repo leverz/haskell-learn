@@ -8,4 +8,5 @@ import System.Random如果报错，可能是因为ghc没有默认将它添加到
 ```Shell
 cabal install random
 ```
-
+## haskell style guide
+https://github.com/tibbe/haskell-style-guide/blob/master/haskell-style.md
