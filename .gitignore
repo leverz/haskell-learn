@@ -2,3 +2,4 @@
 *.o
 .vscode
 .DS_Store
+.cabal-sandbox
