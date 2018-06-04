@@ -18,6 +18,7 @@ edits1 word = unique $ deletes ++ transposes ++ replaces ++ inserts
         word' = map toLower word
 
 unique :: [String] -> [String]
+-- (map head).group.sort $ []
 unique = map head.group.sort
 
 main = print $ edits1 "hi"
