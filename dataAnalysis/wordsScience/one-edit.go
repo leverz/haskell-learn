@@ -53,6 +53,16 @@ func deletes(s string) []string  {
 	return ds
 }
 
+func transposes(s string) []string {
+	ts := make([]string, len(s) - 1)
+	for  {
+		c := []byte(s)
+		c[i], c[i+1] = c[i+1], c[i]
+		ts[i] = string(c)
+	}
+	return ts
+}
+
 
 func edits1(word string) []string {
 	_word := strings.ToLower(word)
