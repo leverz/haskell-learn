@@ -68,11 +68,12 @@ func replaces(s string) []string  {
 	alphabetLen := len(Alphabet)
 	length := len(s) * alphabetLen
 	rs := make([]string, length)
+	alphabet := []byte(Alphabet)
 	for i := range s {
-		for j := range Alphabet {
+		for j := range alphabet {
 			c := []byte(s)
-			c[i] = Alphabet[j]
-			rs[i+j] = string(c)
+			c[i] = alphabet[j]
+			rs[i * alphabetLen + j] = string(c[:])
 		}
 	}
 	return rs
@@ -82,10 +83,9 @@ func inserts (s string) []string {
 	alphabetLen := len(Alphabet)
 	length := (len(s) + 1) * alphabetLen
 	is := make([]string, length)
-	alphabet := []byte(Alphabet)
-	for i := range s {
-		for j := range alphabet {
-			is[i+j] = string(s[:i] + string(alphabet[j]) + s[i:])
+	for i :=0; i<len(s)+1; i++ {
+		for j := range Alphabet {
+			is[i * alphabetLen + j] = s[:i] + string(Alphabet[j]) + s[i:]
 		}
 	}
 	return is
@@ -95,13 +95,9 @@ func inserts (s string) []string {
 func edits1(word string) []string {
 	lower := strings.ToLower(word)
 	ds := deletes(lower)
-	fmt.Println(len(ds))
 	ts := transposes(lower)
-	fmt.Println(len(ts))
 	rs := replaces(lower)
-	fmt.Println(len(rs))
 	is := inserts(lower)
-	fmt.Println(len(is))
 	var words []string
 	words = append(words, ds...)
 	words = append(words, ts...)
