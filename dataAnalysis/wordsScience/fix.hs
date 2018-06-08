@@ -3,6 +3,10 @@ import Data.List (group, sort, maximumBy)
 import Data.Ord (comparing)
 import Data.Map (fromListWith, Map, member, (!))
 
+-- unwords :: [String] -> String
+-- unwords 可以把一个字符串数组，组合成一个新的字符串，中间以空格分开
+-- words :: String -> [String]
+-- words 正好与 unwords 相反，它是将一个字符串，以空格为分割，拆成一个字符串数组
 autofix :: Map String Int -> String -> String
 autofix m sentence = unwords $ map (correct m) (words sentence)
 
@@ -11,7 +15,7 @@ getWords str = words $ filter (\x -> isAlpha x || isSpace x) lower
                where lower = map toLower str
 
 train :: [String] -> Map String Int
-train = fromListWith (+) . ('zip' repeat 1)
+train = fromListWith (+) . (`zip` repeat 1)
 
 edits1 :: String -> [String]
 edits1 word = unique $ deletes ++ transposes ++ replaces ++ inserts
@@ -37,10 +41,10 @@ knownEdits2 :: String -> Map String a -> [String]
 knownEdits2 word m = unique $ [ e2
                               | e1 <- edits1 word
                               , e2 <- edits1 e1
-                              , e2 'member' m ]
+                              , e2 `member` m ]
 
 known :: [String] -> Map String a -> [String]
-known ws m = filter ('member' m) ws
+known ws m = filter (`member` m) ws
 
 correct :: Map String Int -> String -> String
 correct m word = maximumBy (comparing (m!)) candidates
@@ -52,7 +56,8 @@ correct m word = maximumBy (comparing (m!)) candidates
 
 main :: IO ()
 main = do
+  -- from http://norvig.com/big.txt, it is so big
   rawText <- readFile "big.txt"
   let m = train $ getWords rawText
-  let sentence = "such codez many hsakell very spel so korrect"
+  let sentence = "such codez many haskell very spel so korrect"
   print $ autofix m sentence
