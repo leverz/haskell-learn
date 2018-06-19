@@ -14,6 +14,7 @@ getWords :: String -> [String]
 getWords str = words $ filter (\x -> isAlpha x || isSpace x) lower
                where lower = map toLower str
 
+-- ["hello", "world", "hello"] -> [("hello", 1), ("world", 1), ("hello", 1)] -> fromList [("hello", 2), ("world", 1)]
 train :: [String] -> Map String Int
 train = fromListWith (+) . (`zip` repeat 1)
 
@@ -49,9 +50,13 @@ known ws m = filter (`member` m) ws
 correct :: Map String Int -> String -> String
 correct m word = maximumBy (comparing (m!)) candidates
                  where candidates = head $ filter (not.null)
+                                    -- 词库里有没有这个 word
                                     [ known [word] m
+                                    -- 如果没有，编辑距离为 1 的词在词库里有没有
                                     , known (edits1 word) m
+                                    -- 如果编辑距离为 1 的词也不存在，看看编辑距离为 2 的词
                                     , knownEdits2 word m
+                                    -- 实在没有，直接用原词
                                     , [word] ]
 
 main :: IO ()
