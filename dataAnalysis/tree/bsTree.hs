@@ -1,4 +1,5 @@
-module BSTree (insert, find, single) where
+module BSTree (Tree (Node, Null), insert, find, single, valid) where
+  -- should export type Tree with Node and Null
   data Tree a = Node { value :: a
                      , left  :: (Tree a)
                      , right :: (Tree a) }
@@ -20,3 +21,11 @@ module BSTree (insert, find, single) where
     | v' > v = find r v'
     | otherwise = True
   find Null v' = False
+
+  valid :: Ord t => Tree t -> Bool
+  valid (Node v l r) = leftValid && rightValid
+    where leftValid = if notNull l then valid l && value l <= v
+                      else True
+          rightValid = if notNull r then valid r && v <= value r
+                       else True
+          notNull t = t /= Null
